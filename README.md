@@ -1,10 +1,10 @@
-### Falcon REST API with Redis - Simple Text search service
+## Falcon REST API with Redis - Simple Text search service
 
 Simple text search service with using Falcon web framework and Redis.
 
 Falcon is a minimalist WSGI library for building speedy web APIs and app backends. More information can be found [here](http://falcon.readthedocs.io/en/stable/index.html).
 
-#### Service features
+### Service features
 The simple text search service are required to have the following features:
 
 * The service should hold document in redis (or in memory)
@@ -17,11 +17,11 @@ The simple text search service are required to have the following features:
 
 The service should be optimized for search speed and should be able to handle thousands of documents.
 
-#### Requirements
+### Requirements
 
 This project uses [virtualenv](https://virtualenv.pypa.io/en/stable/) as isolated Python environment for installation and running. Therefore, [virtualenv](https://virtualenv.pypa.io/en/stable/) must be installed.
 
-#### Installation
+### Installation
 
 Install all the python module dependencies in requirements.txt
 ```
@@ -33,4 +33,4 @@ Start server
   ./bin/run.sh start
 ```
 
-#### Usage
+### Usage
