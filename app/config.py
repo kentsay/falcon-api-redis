@@ -11,15 +11,9 @@ INI_FILE = os.path.join(
 
 CONFIG = ConfigParser.ConfigParser()
 CONFIG.read(INI_FILE)
-#POSTGRES = CONFIG['postgres']
-#if APP_ENV == 'dev' or APP_ENV == 'live':
-    #DB_CONFIG = (POSTGRES['user'], POSTGRES['password'], POSTGRES['host'], POSTGRES['database'])
-    #DATABASE_URL = "postgresql+psycopg2://%s:%s@%s/%s" % DB_CONFIG
-#else:
-    #DB_CONFIG = (POSTGRES['host'], POSTGRES['database'])
-    #DATABASE_URL = "postgresql+psycopg2://%s/%s" % DB_CONFIG
 
-#DB_ECHO = True if CONFIG['database']['echo'] == 'yes' else False
-#DB_AUTOCOMMIT = True
+REDIS_URL  = CONFIG.get("redis", "host")
+REDIS_PORT = CONFIG.get("redis", "port")
+REDIS_DB   = CONFIG.get("redis", "db")
 
-LOG_LEVEL = CONFIG.get("logging", "level")
+LOG_LEVEL  = CONFIG.get("logging", "level")
