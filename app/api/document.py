@@ -1,18 +1,20 @@
 #document.py
 
+from app import log
+
 import falcon
 import string
 import json
 from rq import Queue
 from rq.job import Job
-from writer import postDocument, delDocument
+from docHandler import postDocument, delDocument
 
 """
 Todo list:
-3. modify redis indexing for query value and get key
-4. redix better way to handle set & get (mset, etc)
 5. api error handling
 """
+
+LOG = log.get_logger()
 
 class DocumentResource(object):
 
@@ -53,7 +55,7 @@ class DocumentResource(object):
         job = q.enqueue_call(
             func=postDocument, args=(result_json, doc_index), result_ttl=5000
         )
-        print(job.get_id())
+        LOG.info('POST request ' + str(job.get_id()))
 
         resp.status = falcon.HTTP_202
         resp.body = json.dumps(result_json, encoding='utf-8')
@@ -69,4 +71,4 @@ class DocumentResource(object):
         job = q.enqueue_call(
             func=delDocument, args=(doc_index,), result_ttl=5000
         )
-        print(job.get_id())
+        LOG.info('DELETE request ' + str(job.get_id()))
