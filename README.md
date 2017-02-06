@@ -33,4 +33,65 @@ Start server
   ./bin/run.sh start
 ```
 
+Start workers
+```
+  python worker.py
+```
+
 ### Usage
+
+Create document
+- Request
+```shell
+curl -XPOST http://localhost:8000/document/1 -H "Content-Type: application/json" -d '{
+ "message": "Meet people from various countries, cultures and diverse
+backgrounds. We work in interdisciplinary teams to innovate and
+open fundamentally new ways to deliver product insurances."
+}'
+```
+
+- Response
+```json
+{
+"message": "Meet people from various countries, cultures and diverse
+backgrounds. We work in interdisciplinary teams to innovate and
+open fundamentally new ways to deliver product insurances."
+}
+```
+
+GET document
+- Request
+```shell
+curl -XGET http://localhost:8000/document/1
+```
+
+- Response
+```json
+{
+"message": "Meet people from various countries, cultures and diverse
+backgrounds. We work in interdisciplinary teams to innovate and
+open fundamentally new ways to deliver product insurances."
+}
+```
+
+DELETE document
+- Request
+```shell
+curl -XDELETE http://localhost:8000/document/1
+```
+
+- Response
+```json
+{}
+```
+
+Search documents ID by keyword
+- Request
+```shell
+curl -XGET http://localhost:8000/search?q=people cultures
+```
+
+- Response
+```json
+{["1", "2"]}
+```
