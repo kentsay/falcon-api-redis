@@ -1,6 +1,6 @@
 import json
 import string
-from . import redis_db
+from app.database import redis_db
 from app.util.stringUtil import preProcess
 
 def postDocument(result_json, doc_index):

@@ -1,12 +1,10 @@
 import falcon
 
 from app import log
-#from app.middleware import AuthHandler, JSONTranslator, DatabaseSessionManager
-#from app.database import db_session, init_session
 
 from app.api import search
 from app.api import document
-from app.api import redis_db
+from app.database import redis_db
 from app.errors import AppError
 
 LOG = log.get_logger()
@@ -22,8 +20,6 @@ class App(falcon.API):
 
         self.add_error_handler(AppError, AppError.handle)
 
-#init_session()
-#middleware = [AuthHandler(), JSONTranslator(), DatabaseSessionManager(db_session)]
 application = App()
 
 

@@ -3,8 +3,12 @@
 import falcon
 import string
 import json
-from . import redis_db
+from app import log
+from app.database import redis_db
 from app.util.stringUtil import preProcess
+from app.errors import AppError, InvalidParameterError
+
+LOG = log.get_logger()
 
 class SearchResource(object):
 
@@ -39,3 +43,5 @@ class SearchResource(object):
 
             resp.body = json.dumps(list(result))
             resp.status = falcon.HTTP_200  # This is the default status
+        else:
+            raise falcon.HTTPBadRequest('Missing parameter q', 'Missing query parameters q')

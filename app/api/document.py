@@ -9,11 +9,6 @@ from rq import Queue
 from rq.job import Job
 from docHandler import postDocument, delDocument
 
-"""
-Todo list:
-5. api error handling
-"""
-
 LOG = log.get_logger()
 
 class DocumentResource(object):
