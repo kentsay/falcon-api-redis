@@ -17,6 +17,11 @@ The simple text search service are required to have the following features:
 
 The service should be optimized for search speed and should be able to handle thousands of documents.
 
+### Simple architecture
+In order to achieve the optimization performance, we use RQ ([Redis Queue](http://python-rq.org/)) to handle write request(POST, DELETE, etc). RQ is a simple Python library for queueing jobs and processing them in the background with workers.
+
+If you have enough resource and want to scale out your service, you can use a Nginx load balancer in front, and forward all READ quest to one server, and all the WRITE request to another.
+
 ### Requirements
 
 This project uses [virtualenv](https://virtualenv.pypa.io/en/stable/) as isolated Python environment for installation and running. Therefore, [virtualenv](https://virtualenv.pypa.io/en/stable/) must be installed.
