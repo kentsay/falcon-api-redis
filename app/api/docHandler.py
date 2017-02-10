@@ -1,7 +1,10 @@
 import json
 import string
+from app import log
 from app.database import redis_db
 from app.util.stringUtil import preProcess
+
+LOG = log.get_logger()
 
 def postDocument(result_json, doc_index):
     try:
@@ -28,10 +31,28 @@ def postDocument(result_json, doc_index):
         r.sadd(token, doc_index)
 
 def delDocument(doc_index):
+    """
+    When deleting document, two things need to update:
+    1. delete doc_index with the mapping to document itself
+    2. update the search index and remove the doc_index under the mapping keyword
+    """
     try:
         db = redis_db.RedisStorageEngine()
         r = db.connection()
     except Exception as ex:
         print ex
 
-    r.delete(doc_index)
+    if (r.exists(doc_index)):
+        result_json = r.get(doc_index).replace("u'",'"')
+        result_json = result_json.replace("'",'"')
+        documentBody = json.loads(result_json, encoding='utf-8')
+
+        """update document index"""
+        tokens = documentBody['message'].split(" ")
+        for token in tokens:
+            r.srem(token, doc_index)
+
+            """delete document itself"""
+            r.delete(doc_index)
+    else:
+        LOG.warning("doc_index: " + doc_index + " does not exists")
