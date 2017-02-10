@@ -98,5 +98,5 @@ curl -XGET http://localhost:8000/search?q=people cultures
 
 - Response
 ```json
-{["1", "2"]}
+{"1", "2"}
 ```
